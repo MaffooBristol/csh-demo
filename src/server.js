@@ -12,8 +12,13 @@ export default class Server {
     const server = app.listen(port);
     console.log(`Started on port ${port}`);
 
-    app.get('/', (req, res) => {
-      res.send('Elz Demo');
+    app.use(express.static(path.resolve('src/static')));
+    app.use(express.static(path.resolve('lib/client')));
+
+    console.log(path.resolve('src/static'));
+
+    app.get('*', (req, res) => {
+      res.sendFile(path.resolve('src/static/index.html'));
     });
   }
 }

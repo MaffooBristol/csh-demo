@@ -1,0 +1,27 @@
+@import 'vendor/normalize.css'
+@import 'colours'
+@import 'sizes'
+
+body
+  background white
+  color #333
+  font-family sans-serif
+  box-sizing border-box
+  *, *:before, *:after
+    box-sizing inherit
+
+#sidebar
+  background $steel
+  position fixed
+  top 0
+  left 0
+  width $sidebarWidth
+  height 100%
+  padding 20px
+  color white
+
+#main
+  margin-left $sidebarWidth
+  padding 20px
+
+@import 'pages/login-page'
