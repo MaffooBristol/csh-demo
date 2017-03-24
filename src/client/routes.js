@@ -1,7 +1,11 @@
+import React from 'react';
 import BaseLayout from './layouts/Base.jsx';
 import SidebarLayout from './layouts/Sidebar.jsx';
 import DashboardPage from './containers/DashboardPage.jsx';
 import LoginPage from './containers/LoginPage.jsx';
+import { browserHistory } from 'react-router';
+
+import Auth from './modules/Auth.js';
 
 export default {
   component: BaseLayout,
@@ -11,22 +15,25 @@ export default {
       childRoutes: [
         {
           path: '/',
-          // component: DashboardPage,
-          getComponent: (location, callback) => {
-            callback(null, DashboardPage);
+          component: DashboardPage,
+          onEnter: (nextState, replace) => {
+            if (!Auth.isAuthed()) {
+              replace('/login');
+            }
           },
         },
       ],
     },
-
     {
       path: '/login',
-      // component: LoginPage
-      getComponent: (location, callback) => {
-        console.log(location);
-        callback(null, LoginPage)
+      component: LoginPage,
+    },
+    {
+      path: '/logout',
+      onEnter: (nextState, replace) => {
+        Auth.unauth();
+        replace('/login');
       },
     },
-
   ],
 }
