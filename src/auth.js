@@ -1,9 +1,11 @@
 import passport from 'passport';
 import passportLocal from 'passport-local';
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+// import bcrypt from 'bcrypt'; // Leave this until later
 
-const localStrategy = passportLocal.Strategy;
+const LocalStrategy = passportLocal.Strategy;
+
+const secretPhrase = 'Super secret phrase';
 
 export default class Auth {
   constructor (app) {
@@ -18,14 +20,12 @@ export default class Auth {
       done(null, { username: 'test', password: 'password' });
     });
 
-    passport.use('local-login', new localStrategy({
-      usernameField: 'username',
-      passwordField: 'password',
+    passport.use('local-login', new LocalStrategy({
       session: false,
-      passReqToCallback: true
+      passReqToCallback: true,
     }, (req, username, password, done) => {
       if (username === 'test' && password === 'password') {
-        const token = jwt.sign({ sub: username }, 'Super secret phrase');
+        const token = jwt.sign({ sub: username }, secretPhrase, { expiresIn: 30 });
         done(null, token, { fullName: 'John Smith' });
       }
       else {
@@ -44,6 +44,16 @@ export default class Auth {
           token
         });
       })(req, res, next);
+    });
+  }
+  check (req, res, next) {
+    const token = req.headers.authorization.split(' ')[1];
+    jwt.verify(token, secretPhrase, (err, decoded) => {
+      if (err) {
+        return res.status(401).end();
+      }
+      console.log(decoded);
+      return next();
     });
   }
 }

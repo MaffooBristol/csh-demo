@@ -1,0 +1,7 @@
+extends: airbnb
+plugins:
+  - import
+rules:
+  react/require-extension: off
+  space-before-function-paren: off
+  brace-style: [2, 'stroustrup']
