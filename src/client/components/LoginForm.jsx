@@ -5,9 +5,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 const LoginForm = ({ className, onSubmit, onChange }) => (
   <Card className={className}>
-    <img src="/img/elz_logo.jpg" className="logo" role="presentation" />
     <form action="/" onSubmit={onSubmit}>
-      <h2 className="card-heading">Login</h2>
+      <h2 className="card-heading">CSH Demo: Login</h2>
       <div>
         <TextField
           floatingLabelText="Username"

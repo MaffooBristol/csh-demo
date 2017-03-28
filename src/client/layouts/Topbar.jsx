@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 const Topbar = ({ children }) => (
   <div>
     <div id="topbar">
-      <img src="/img/elz_logo.jpg" className="logo" alt="Elz logo" />
+      <div className="logo">CSH</div>
       <Link to="/logout" className="logout">Log Out</Link>
     </div>
     <div id="main">
