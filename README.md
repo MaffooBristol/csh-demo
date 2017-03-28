@@ -1,7 +1,7 @@
-Elz Demo
+CSH Demo
 ========
 
-[![CircleCI](https://circleci.com/gh/MaffooBristol/elz-demo/tree/master.svg?style=svg)](https://circleci.com/gh/MaffooBristol/elz-demo/tree/master)
+[![CircleCI](https://circleci.com/gh/MaffooBristol/csh-demo/tree/master.svg?style=svg)](https://circleci.com/gh/MaffooBristol/csh-demo/tree/master)
 
 Make sure you have Node installed. This is using Node version 7, but it can be
 adapted to allow for different versions but they are wholly unsupported and
