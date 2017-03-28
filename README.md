@@ -1,6 +1,8 @@
 Elz Demo
 ========
 
+[![CircleCI](https://circleci.com/gh/MaffooBristol/elz-demo/tree/master.svg?style=svg)](https://circleci.com/gh/MaffooBristol/elz-demo/tree/master)
+
 Make sure you have Node installed. This is using Node version 7, but it can be
 adapted to allow for different versions but they are wholly unsupported and
 untested as of now. The best way to install Node is generally with TJ's n module.
