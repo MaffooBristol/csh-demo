@@ -1,7 +1,7 @@
 import { browserHistory } from 'react-router';
 
 import BaseLayout from './layouts/Base';
-import TopbarLayout from './layouts/Sidebar';
+import TopbarLayout from './layouts/Topbar';
 import DashboardPage from './containers/DashboardPage';
 import LoginPage from './containers/LoginPage';
 
