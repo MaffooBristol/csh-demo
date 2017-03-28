@@ -1,22 +1,21 @@
-import React from 'react';
 import { browserHistory } from 'react-router';
 
-import BaseLayout from './layouts/Base.jsx';
-import SidebarLayout from './layouts/Sidebar.jsx';
-import DashboardPage from './containers/DashboardPage.jsx';
-import LoginPage from './containers/LoginPage.jsx';
+import BaseLayout from './layouts/Base';
+import SidebarLayout from './layouts/Sidebar';
+import DashboardPage from './containers/DashboardPage';
+import LoginPage from './containers/LoginPage';
 
-import Auth from './modules/Auth.js';
+import Auth from './modules/Auth';
 
 let authCheckInterval = null;
 
 export default {
+  basePath: '/',
   component: BaseLayout,
   childRoutes: [
     {
       component: SidebarLayout,
       onEnter: (nextState, replace) => {
-        console.log('will');
         if (!Auth.isAuthed()) {
           return replace('/login');
         }
@@ -27,7 +26,8 @@ export default {
               browserHistory.replace('/login');
             }
           });
-        }, 1000);
+        }, 5000);
+        return this;
       },
       childRoutes: [
         {
@@ -39,7 +39,7 @@ export default {
     {
       path: '/login',
       component: LoginPage,
-      onEnter: (nextState, replace) => {
+      onEnter: () => {
         clearInterval(authCheckInterval);
       },
     },
@@ -51,4 +51,4 @@ export default {
       },
     },
   ],
-}
+};

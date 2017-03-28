@@ -1,6 +1,6 @@
 import yargs from 'yargs';
 
-import Server from './server.js';
+import Server from './server';
 
 const argv = yargs.argv;
 

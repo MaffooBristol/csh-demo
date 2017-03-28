@@ -14,6 +14,9 @@ const stylusLoader = ExtractTextPlugin.extract({ fallback: 'style-loader', use: 
 
 module.exports = [
   {
+    resolve: {
+      extensions: ['.js', '.jsx'],
+    },
     entry: path.join(__dirname, '/src/client/main.jsx'),
     output: {
       path: path.join(__dirname, '/lib/client/js'),

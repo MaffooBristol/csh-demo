@@ -10,7 +10,6 @@ const secretPhrase = 'Super secret phrase';
 export default class Auth {
   constructor (app) {
     this.app = app;
-    this.setup();
   }
   setup () {
     passport.serializeUser((user, done) => {
@@ -40,19 +39,19 @@ export default class Auth {
             error: err || 'Missing credentials',
           });
         }
-        return res.json({
-          token
-        });
+        return res.json({ token });
       })(req, res, next);
     });
   }
-  check (req, res, next) {
+  static check (req, res, next) {
     const token = req.headers.authorization.split(' ')[1];
     jwt.verify(token, secretPhrase, (err, decoded) => {
       if (err) {
         return res.status(401).end();
       }
-      console.log(decoded);
+      if (!decoded) {
+        return res.status(401).end();
+      }
       return next();
     });
   }

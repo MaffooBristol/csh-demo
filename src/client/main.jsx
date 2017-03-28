@@ -4,10 +4,9 @@ import { browserHistory, Router } from 'react-router';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import routes from './routes.js';
-import styles from './styles/main.styl';
+import routes from './routes';
 
-import Auth from './modules/Auth.js';
+import './styles/main.styl';
 
 class App extends React.Component {
   constructor () {

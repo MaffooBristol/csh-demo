@@ -1,8 +1,8 @@
 import React from 'react';
 import 'whatwg-fetch';
 
-import Auth from '../modules/Auth.js';
-import LoginForm from '../components/LoginForm.jsx';
+import Auth from '../modules/Auth';
+import LoginForm from '../components/LoginForm';
 
 export default class LoginPage extends React.Component {
   constructor(props, context) {
@@ -11,7 +11,7 @@ export default class LoginPage extends React.Component {
       user: {
         email: '',
         password: '',
-      }
+      },
     };
     this.changeUser = this.changeUser.bind(this);
     this.submitForm = this.submitForm.bind(this);
@@ -32,7 +32,6 @@ export default class LoginPage extends React.Component {
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
-      console.log(xhr);
       if (xhr.status === 200) {
         Auth.auth(xhr.response.token);
         window.location = '/';
@@ -45,9 +44,9 @@ export default class LoginPage extends React.Component {
   }
   render () {
     return (
-      <div id='login-page'>
+      <div id="login-page">
         <LoginForm
-          className='login-form'
+          className="login-form"
           onChange={this.changeUser}
           onSubmit={this.submitForm}
         />

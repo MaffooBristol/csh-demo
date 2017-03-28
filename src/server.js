@@ -1,13 +1,9 @@
 import express from 'express';
 import path from 'path';
 import passport from 'passport';
-import passportLocal from 'passport-local';
-import jwt from 'jsonwebtoken';
 import bodyParser from 'body-parser';
 
-import Auth from './auth.js';
-
-const localStrategy = passportLocal.Strategy;
+import Auth from './auth';
 
 export default class Server {
   constructor (opts) {
@@ -17,7 +13,7 @@ export default class Server {
     const app = express();
     const port = this.opts.port || 8085;
 
-    const server = app.listen(port);
+    app.listen(port);
     console.log(`Started on port ${port}`);
 
     app.use(bodyParser.urlencoded({ extended: true }));
@@ -29,15 +25,15 @@ export default class Server {
     app.use(passport.session());
 
     const auth = new Auth(app);
+    auth.setup();
 
-    app.get('/api/check-auth', auth.check, (req, res, next) => {
+    app.get('/api/check-auth', Auth.check, (req, res) => {
       res.send({ message: 'Secrets!' });
     });
 
     app.get('*', (req, res) => {
       res.sendFile(path.resolve('src/static/index.html'));
     });
-
   }
 }
 
