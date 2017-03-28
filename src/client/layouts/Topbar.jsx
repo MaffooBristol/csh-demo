@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-const Sidebar = ({ children }) => (
+const Topbar = ({ children }) => (
   <div>
     <div id="topbar">
       <img src="/img/elz_logo.jpg" className="logo" alt="Elzware logo" />
@@ -13,8 +13,8 @@ const Sidebar = ({ children }) => (
   </div>
 );
 
-Sidebar.propTypes = {
+Topbar.propTypes = {
   children: PropTypes.element,
 };
 
-export default Sidebar;
+export default Topbar;

@@ -1,7 +1,7 @@
 import { browserHistory } from 'react-router';
 
 import BaseLayout from './layouts/Base';
-import SidebarLayout from './layouts/Sidebar';
+import TopbarLayout from './layouts/Sidebar';
 import DashboardPage from './containers/DashboardPage';
 import LoginPage from './containers/LoginPage';
 
@@ -14,7 +14,7 @@ export default {
   component: BaseLayout,
   childRoutes: [
     {
-      component: SidebarLayout,
+      component: TopbarLayout,
       onEnter: (nextState, replace) => {
         if (!Auth.isAuthed()) {
           return replace('/login');
