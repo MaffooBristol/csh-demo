@@ -24,8 +24,7 @@ export default class Server {
     app.use(passport.initialize());
     app.use(passport.session());
 
-    const auth = new Auth(app);
-    auth.setup();
+    (new Auth(app)).setup();
 
     app.get('/api/check-auth', Auth.check, (req, res) => {
       res.send({ message: 'Secrets!' });

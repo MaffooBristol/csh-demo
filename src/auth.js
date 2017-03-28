@@ -42,6 +42,8 @@ export default class Auth {
         return res.json({ token });
       })(req, res, next);
     });
+
+    return this;
   }
   static check (req, res, next) {
     const token = req.headers.authorization.split(' ')[1];
@@ -54,5 +56,6 @@ export default class Auth {
       }
       return next();
     });
+    return this;
   }
 }

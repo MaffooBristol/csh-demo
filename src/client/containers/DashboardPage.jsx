@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default (
+export default () => (
   <div>
     <h1>Dashboard</h1>
     <p>
