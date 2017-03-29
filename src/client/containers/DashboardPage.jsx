@@ -6,5 +6,12 @@ export default () => (
     <p>
       Testing, testing, one two three...
     </p>
+    <p>
+      This server is running off of
+      <strong>
+        {process.env._system_name}
+        {process.env._system_version}
+      </strong>
+    </p>
   </div>
 );

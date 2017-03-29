@@ -1,15 +1,18 @@
-const webpack = require('webpack');
+/* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
+
 const path = require('path');
 const fs = require('fs');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const InlineVariablesPlugin = require('inline-environment-variables-webpack-plugin');
 
 const nodeModules = {};
 
 fs.readdirSync('node_modules')
 .filter(x => ['.bin'].indexOf(x) === -1)
-.forEach(mod => nodeModules[mod] = 'commonjs ' + mod);
+.forEach((mod) => {
+  nodeModules[mod] = `commonjs ${mod}`;
+});
 
-const cssLoader = ExtractTextPlugin.extract({ use: 'css-loader' });
 const stylusLoader = ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader!stylus-loader' });
 
 module.exports = [
@@ -29,7 +32,7 @@ module.exports = [
           include: path.join(__dirname, '/src/client'),
           loader: 'babel-loader',
           query: {
-            presets: ["node7", "stage-1", "react"],
+            presets: ['node7', 'stage-1', 'react'],
           },
         },
         {
@@ -40,7 +43,8 @@ module.exports = [
       ],
     },
     plugins: [
-      new ExtractTextPlugin("../css/[name].css")
+      new ExtractTextPlugin('../css/[name].css'),
+      new InlineVariablesPlugin(),
     ],
   },
   {
