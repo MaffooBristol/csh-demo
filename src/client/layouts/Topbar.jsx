@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import Menu, {SubMenu, MenuItem} from 'rc-menu';
+import Menu, { MenuItem } from 'rc-menu';
 
 const Topbar = ({ children }) => (
   <div>

@@ -38,7 +38,7 @@ export default {
         {
           path: '/settings',
           component: SettingsPage,
-        }
+        },
       ],
     },
     {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SettingsPage = ({}) => (
+const SettingsPage = () => (
   <div>Settings</div>
 );
 
