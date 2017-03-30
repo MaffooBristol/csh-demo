@@ -3,6 +3,7 @@ import { browserHistory } from 'react-router';
 import BaseLayout from './layouts/Base';
 import TopbarLayout from './layouts/Topbar';
 import DashboardPage from './containers/DashboardPage';
+import SettingsPage from './containers/SettingsPage';
 import LoginPage from './containers/LoginPage';
 
 import Auth from './modules/Auth';
@@ -34,6 +35,10 @@ export default {
           path: '/',
           component: DashboardPage,
         },
+        {
+          path: '/settings',
+          component: SettingsPage,
+        }
       ],
     },
     {

@@ -10,28 +10,10 @@ body
   *, *:before, *:after
     box-sizing inherit
 
-#topbar
-  background $steel
-  position fixed
-  top 0
-  left 0
-  width 100%
-  height $topbarHeight
-  padding 20px
-  color white
-  a
-    color inherit
-    text-decoration none
-  .logo
-    height $topbarHeight - 40
-  .logout
-    position absolute
-    top 0
-    right 0
-    padding 30px
-
 #main
   margin-top $topbarHeight
   padding 20px
+
+@import 'components/topbar'
 
 @import 'pages/login-page'
