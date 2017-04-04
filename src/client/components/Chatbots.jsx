@@ -1,13 +1,14 @@
 import React, { PropTypes } from 'react';
 
 import { Link } from 'react-router';
+import moment from 'moment';
 
 class ChatbotRow extends React.Component {
   render () {
     return (
       <tr key={Math.random()}>
         <td><Link to={`/container/${this.props.slug}`}>{this.props.name}</Link></td>
-        <td>{this.props.created}</td>
+        <td>{moment(this.props.created).fromNow()}</td>
       </tr>
     );
   }
@@ -43,15 +44,24 @@ class Chatbots extends React.Component {
       {
         name: 'HarryBot',
         slug: 'harrybot',
-        created: 'Today',
+        created: '2017-04-02T10:46:35+01:00',
       },
       {
         name: 'MaffBot',
         slug: 'maffbot',
-        created: 'Yesterday',
+        created: '2017-04-04T17:53:54+01:00',
+      },
+      {
+        name: 'TanBot',
+        slug: 'tanbot',
+        created: '2017-03-28T12:12:18+01:00',
       },
     ];
-    this.rows = rows.map(row => (
+
+    this.rows = rows.sort((a, b) => {
+      return moment(a.created).unix() < moment(b.created).unix();
+    })
+    .map(row => (
       <ChatbotRow
         name={row.name}
         slug={row.slug}
