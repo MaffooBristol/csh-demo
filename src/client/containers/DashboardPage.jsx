@@ -1,8 +1,10 @@
 import React from 'react';
 
+import Chatbots from '../components/Chatbots';
+
 export default () => (
   <div>
-    <h1>Dashboard</h1>
+    <h1>Containers</h1>
     <p>
       Testing, testing, one two three...
     </p>
@@ -13,5 +15,8 @@ export default () => (
         {process.env._system_version}
       </strong>
     </p>
+    <div className="chatbots">
+      <Chatbots />
+    </div>
   </div>
 );

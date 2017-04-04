@@ -3,8 +3,10 @@ import { browserHistory } from 'react-router';
 import BaseLayout from './layouts/Base';
 import TopbarLayout from './layouts/Topbar';
 import DashboardPage from './containers/DashboardPage';
+import DebugPage from './containers/DebugPage';
 import SettingsPage from './containers/SettingsPage';
 import LoginPage from './containers/LoginPage';
+import NotFoundPage from './containers/NotFoundPage';
 
 import Auth from './modules/Auth';
 
@@ -36,6 +38,10 @@ export default {
           component: DashboardPage,
         },
         {
+          path: '/debug',
+          component: DebugPage,
+        },
+        {
           path: '/settings',
           component: SettingsPage,
         },
@@ -54,6 +60,10 @@ export default {
         Auth.unauth();
         replace('/login');
       },
+    },
+    {
+      path: '*',
+      component: NotFoundPage,
     },
   ],
 };

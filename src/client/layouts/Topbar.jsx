@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import { Link, IndexLink } from 'react-router';
 import Menu, { MenuItem } from 'rc-menu';
 
 const Topbar = ({ children }) => (
@@ -7,9 +7,9 @@ const Topbar = ({ children }) => (
     <div id="topbar">
       <div className="logo">CSH</div>
       <Menu mode="horizontal">
-        <MenuItem><Link to="/">Containers</Link></MenuItem>
-        <MenuItem><Link to="/">Something else</Link></MenuItem>
-        <MenuItem><Link to="/settings">Settings</Link></MenuItem>
+        <MenuItem><IndexLink to="/" activeClassName="active">Containers</IndexLink></MenuItem>
+        <MenuItem><Link to="/debug" activeClassName="active">Debug</Link></MenuItem>
+        <MenuItem><Link to="/settings" activeClassName="active">Settings</Link></MenuItem>
       </Menu>
       <Link to="/logout" className="logout">Log Out</Link>
     </div>

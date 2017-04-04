@@ -7,6 +7,9 @@ const LoginForm = ({ className, onSubmit, onChange }) => (
   <Card className={className}>
     <form action="/" onSubmit={onSubmit}>
       <h2 className="card-heading">CSH Demo: Login</h2>
+      <small>
+        This login will expire in 2 minutes.
+      </small>
       <div>
         <TextField
           floatingLabelText="Username"
