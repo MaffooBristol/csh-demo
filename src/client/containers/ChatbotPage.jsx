@@ -5,32 +5,30 @@ class ChatbotPage extends React.Component {
   constructor () {
     super();
     this.state = {
-      currentChatbot: null,
+      current: null,
     };
   }
   componentWillMount () {
-    const currentChatbot = window.chatbots.filter((chatbot) => (
-      chatbot.slug === this.props.params.slug
-    ));
-    this.setState({ currentChatbot: currentChatbot[0] });
+    const current = window.chatbots.filter(chatbot => chatbot.slug === this.props.params.slug);
+    this.setState({ current: current[0] });
   }
   render () {
     return (
       <div>
-        <h1>{this.state.currentChatbot.name}</h1>
-        <div className='created'>
-          Created {moment(this.state.currentChatbot.created).format('MMMM Do YYYY HH:mm')}
+        <h1>{this.state.current.name}</h1>
+        <div className="created">
+          Created {moment(this.state.current.created).format('MMMM Do YYYY HH:mm')}
         </div>
-        <div className='description'>
-          <p>{this.state.currentChatbot.description}</p>
+        <div className="description">
+          <p>{this.state.current.description}</p>
         </div>
       </div>
     );
   }
-};
+}
 
 ChatbotPage.propTypes = {
-  params: PropTypes.object.isRequired,
+  params: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default ChatbotPage;
