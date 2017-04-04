@@ -22,8 +22,10 @@ ChatbotRow.propTypes = {
 const ChatbotTable = ({ rows }) => (
   <table>
     <thead>
-      <th>Name</th>
-      <th>Created</th>
+      <tr>
+        <th>Name</th>
+        <th>Created</th>
+      </tr>
     </thead>
     <tbody>
       {rows}
@@ -32,7 +34,7 @@ const ChatbotTable = ({ rows }) => (
 );
 
 ChatbotTable.propTypes = {
-  rows: PropTypes.element.isRequired,
+  rows: PropTypes.arrayOf(PropTypes.element.isRequired).isRequired,
 };
 
 class Chatbots extends React.Component {
@@ -54,6 +56,7 @@ class Chatbots extends React.Component {
         name={row.name}
         slug={row.slug}
         created={row.created}
+        key={row.slug}
       />
     ));
   }
