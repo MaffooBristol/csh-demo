@@ -37,7 +37,8 @@ export default class LoginPage extends React.Component {
         window.location = '/';
       }
       else {
-        alert('Could not log in');
+        const err = xhr.response.error || 'unknown';
+        alert(`Could not log in. Reason: ${err}`);
       }
     });
     xhr.send(formData);

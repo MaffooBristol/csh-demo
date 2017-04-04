@@ -5,12 +5,15 @@
   left 0
   width 100%
   height $topbarHeight
-  padding 20px
   color $steel
-  display flex
-  align-items center
-  > :not(:last-child)
-    margin-right 20px
+  .inner
+    display flex
+    align-items center
+    max-width $containerWidth
+    margin 0 auto
+    padding 20px
+    > :not(:last-child)
+      margin-right 25px
   a
     color inherit
     text-decoration none
@@ -33,8 +36,3 @@
       margin-right 20px
       .active
         color orangered
-  // .logout
-    // position absolute
-    // top 0
-    // right 0
-    // padding 30px
