@@ -30,9 +30,7 @@ const LoginForm = ({ className, onSubmit, onChange }) => (
         <RaisedButton
           type="submit"
           label="Login"
-          style={{
-            background: '#003399',
-          }}
+          className="cta-primary"
         />
       </div>
     </form>

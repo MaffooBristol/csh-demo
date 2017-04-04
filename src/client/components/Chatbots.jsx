@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-
 import { Link } from 'react-router';
 import moment from 'moment';
 
@@ -9,6 +8,7 @@ class ChatbotRow extends React.Component {
       <tr key={Math.random()}>
         <td><Link to={`/container/${this.props.slug}`}>{this.props.name}</Link></td>
         <td>{moment(this.props.created).fromNow()}</td>
+        <td><Link to={`/container/${this.props.slug}/test`}>Test</Link></td>
       </tr>
     );
   }
@@ -26,6 +26,7 @@ const ChatbotTable = ({ rows }) => (
       <tr>
         <th>Name</th>
         <th>Created</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>

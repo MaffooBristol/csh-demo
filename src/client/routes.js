@@ -7,6 +7,7 @@ import DebugPage from './containers/DebugPage';
 import SettingsPage from './containers/SettingsPage';
 import LoginPage from './containers/LoginPage';
 import ChatbotPage from './containers/ChatbotPage';
+import ChatbotTestPage from './containers/ChatbotTestPage';
 import NotFoundPage from './containers/NotFoundPage';
 
 import Auth from './modules/Auth';
@@ -49,6 +50,10 @@ export default {
         {
           path: '/container/:slug',
           component: ChatbotPage,
+        },
+        {
+          path: '/container/:slug/test',
+          component: ChatbotTestPage,
         },
       ],
     },

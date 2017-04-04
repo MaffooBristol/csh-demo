@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import moment from 'moment';
 
 class ChatbotPage extends React.Component {
@@ -21,6 +22,9 @@ class ChatbotPage extends React.Component {
         </div>
         <div className="description">
           <p>{this.state.current.description}</p>
+        </div>
+        <div className="actions">
+          <Link to={`/container/${this.state.current.slug}/test`}>Test</Link>
         </div>
       </div>
     );
