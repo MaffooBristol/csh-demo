@@ -40,25 +40,7 @@ ChatbotTable.propTypes = {
 
 class Chatbots extends React.Component {
   componentWillMount () {
-    const rows = [
-      {
-        name: 'HarryBot',
-        slug: 'harrybot',
-        created: '2017-04-02T10:46:35+01:00',
-      },
-      {
-        name: 'MaffBot',
-        slug: 'maffbot',
-        created: '2017-04-04T17:53:54+01:00',
-      },
-      {
-        name: 'TanBot',
-        slug: 'tanbot',
-        created: '2017-03-28T12:12:18+01:00',
-      },
-    ];
-
-    this.rows = rows.sort((a, b) => {
+    this.rows = window.chatbots.sort((a, b) => {
       return moment(a.created).unix() < moment(b.created).unix();
     })
     .map(row => (

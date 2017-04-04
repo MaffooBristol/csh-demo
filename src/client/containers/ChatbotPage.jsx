@@ -7,7 +7,7 @@ const ChatbotPage = ({ params }) => (
 );
 
 ChatbotPage.propTypes = {
-  params: PropTypes.arrayOf(PropTypes.string),
+  params: PropTypes.object.isRequired,
 };
 
 export default ChatbotPage;

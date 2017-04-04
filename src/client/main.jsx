@@ -8,6 +8,27 @@ import routes from './routes';
 
 import './styles/main.styl';
 
+// @todo: Send this from the backend, but I'll leave that until I've got
+// redux up and running. This should definitely not be attached to the global
+// scope of the window but it's best for keeping the data in one place for now.
+window.chatbots = [
+  {
+    name: 'HarryBot',
+    slug: 'harrybot',
+    created: '2017-04-02T10:46:35+01:00',
+  },
+  {
+    name: 'MaffBot',
+    slug: 'maffbot',
+    created: '2017-04-04T17:53:54+01:00',
+  },
+  {
+    name: 'TanBot',
+    slug: 'tanbot',
+    created: '2017-03-28T12:12:18+01:00',
+  },
+];
+
 class App extends React.Component {
   constructor () {
     super();
