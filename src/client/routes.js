@@ -47,7 +47,7 @@ export default {
           component: SettingsPage,
         },
         {
-          path: '/container/:chatbotSlug',
+          path: '/container/:slug',
           component: ChatbotPage,
         },
       ],

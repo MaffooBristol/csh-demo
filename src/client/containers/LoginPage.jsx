@@ -5,7 +5,7 @@ import Auth from '../modules/Auth';
 import LoginForm from '../components/LoginForm';
 
 export default class LoginPage extends React.Component {
-  constructor(props, context) {
+  constructor (props, context) {
     super(props, context);
     this.state = {
       user: {
