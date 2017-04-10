@@ -32,7 +32,7 @@ module.exports = [
           include: path.join(__dirname, '/src/client'),
           loader: 'babel-loader',
           query: {
-            presets: ['node7', 'stage-1', 'react'],
+            presets: ['es2015', 'node7', 'stage-1', 'react'],
           },
         },
         {

@@ -15,6 +15,7 @@ const LoginForm = ({ className, onSubmit, onChange }) => (
           floatingLabelText="Username"
           type="text"
           name="username"
+          id="login-user"
           onChange={onChange}
         />
       </div>
@@ -23,6 +24,7 @@ const LoginForm = ({ className, onSubmit, onChange }) => (
           floatingLabelText="Password"
           type="password"
           name="password"
+          id="login-pass"
           onChange={onChange}
         />
       </div>
@@ -31,6 +33,7 @@ const LoginForm = ({ className, onSubmit, onChange }) => (
           type="submit"
           label="Login"
           className="cta-primary"
+          id="login-submit"
         />
       </div>
     </form>
