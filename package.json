@@ -1,9 +1,10 @@
 {
   "name": "csh-demo",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Cool demo!",
   "author": "Matt Fletcher",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "build": "webpack",
     "watch": "webpack --watch",
