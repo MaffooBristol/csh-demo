@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Helmet } from 'react-helmet';
 
 class ChatbotTestPage extends React.Component {
   constructor () {
@@ -14,6 +15,9 @@ class ChatbotTestPage extends React.Component {
   render () {
     return (
       <div>
+        <Helmet>
+          <title>{this.state.current.name}</title>
+        </Helmet>
         <h1>Test {this.state.current.name}</h1>
         <table className="chat-message">
           <tbody>

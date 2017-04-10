@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import { Helmet } from 'react-helmet';
 import moment from 'moment';
 
 class ChatbotPage extends React.Component {
@@ -16,6 +17,9 @@ class ChatbotPage extends React.Component {
   render () {
     return (
       <div>
+        <Helmet>
+          <title>{this.state.current.name}</title>
+        </Helmet>
         <h1>{this.state.current.name}</h1>
         <div className="created">
           Created {moment(this.state.current.created).format('MMMM Do YYYY HH:mm')}
