@@ -31,7 +31,7 @@ class ChatbotPage extends React.Component {
         </Helmet>
         <h1>{current.name}</h1>
         <div className="created">
-          Created {moment(current.created).format('MMMM Do YYYY HH:mm')}
+          Created {moment.unix(current.created).format('MMMM Do YYYY HH:mm')}
         </div>
         <div className="description">
           <p>{current.description}</p>

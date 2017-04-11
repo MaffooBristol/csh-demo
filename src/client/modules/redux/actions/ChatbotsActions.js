@@ -5,19 +5,19 @@ export const fetchChatbots = () => (dispatch) => {
     {
       name: 'MaffBot',
       slug: 'maffbot',
-      created: '2017-04-04T17:53:54+01:00',
+      created: parseInt(moment('2017-04-04T17:53:54+01:00').valueOf(), 10),
       description: 'The best chatbot ever. It doesn\'t do anything, mind.',
     },
     {
       name: 'HarryBot',
       slug: 'harrybot',
-      created: '2017-04-02T10:46:35+01:00',
+      created: parseInt(moment('2017-04-02T10:46:35+01:00').valueOf(), 10),
       description: 'Harrybot is a very simple chatscript bot that seems to get very confused.',
     },
     {
       name: 'TanBot',
       slug: 'tanbot',
-      created: '2017-03-28T12:12:18+01:00',
+      created: parseInt(moment('2017-03-28T12:12:18+01:00').valueOf(), 10),
       description: 'Currency conversion for those trans-global jetsetters.',
     },
   ];
@@ -33,7 +33,7 @@ export const addChatbot = (name, slug, description) => (
       name,
       slug,
       description,
-      created: moment().format(),
+      created: moment().valueOf(),
     },
   }
 );
@@ -42,5 +42,15 @@ export const deleteChatbot = slug => (
   {
     type: 'DELETE_CHATBOT',
     slug,
+  }
+);
+
+export const editChatbot = (slug, edit) => (
+  {
+    type: 'EDIT_CHATBOT',
+    data: {
+      slug,
+      ...edit,
+    },
   }
 );

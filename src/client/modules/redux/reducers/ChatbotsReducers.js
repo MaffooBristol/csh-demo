@@ -16,6 +16,15 @@ const Chatbots = (state = {
     case 'DELETE_CHATBOT': {
       return { ...state, chatbots: state.chatbots.filter(chatbot => chatbot.slug !== action.slug) };
     }
+    case 'EDIT_CHATBOT': {
+      return {
+        ...state,
+        chatbots: state.chatbots.map((chatbot) => {
+          if (chatbot.slug !== action.data.slug) return chatbot;
+          return { ...chatbot, ...action.data.edit };
+        }),
+      };
+    }
     default: {
       return state;
     }
