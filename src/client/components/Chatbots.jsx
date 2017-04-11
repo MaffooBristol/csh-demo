@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
-import { fetchChatbots, addChatbot } from '../modules/redux/actions';
+import { fetchChatbots, addChatbot } from '../modules/redux/actions/ChatbotsActions';
 
 const ChatbotRow = ({ name, slug, created }) => (
   <tr key={Math.random()}>
@@ -40,11 +40,13 @@ ChatbotTable.propTypes = {
 
 class Chatbots extends React.Component {
   componentWillMount () {
-    this.props.dispatch(fetchChatbots());
+    if (!this.props.chatbots.fetched && !this.props.chatbots.fetching) {
+      this.props.dispatch(fetchChatbots());
+    }
     this.addChatbot = this.addChatbot.bind(this);
   }
   addChatbot () {
-    this.props.dispatch(addChatbot('Test', 'test', 'Hello!'));
+    this.props.dispatch(addChatbot('Fakebot', 'fakebot', 'This was created automatically'));
   }
   mapRows () {
     return this.props.chatbots.chatbots.sort((a, b) => (
@@ -71,11 +73,15 @@ class Chatbots extends React.Component {
 
 Chatbots.propTypes = {
   dispatch: PropTypes.func,
-  chatbots: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired,
-    created: PropTypes.string.isRequired,
-  }))),
+  chatbots: PropTypes.shape({
+    fetching: PropTypes.bool.isRequired,
+    fetched: PropTypes.bool.isRequired,
+    chatbots: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      slug: PropTypes.string.isRequired,
+      created: PropTypes.string.isRequired,
+    })),
+  }),
 };
 
 const ChatbotsContainer = connect(store => ({ chatbots: store.chatbots }))(Chatbots);

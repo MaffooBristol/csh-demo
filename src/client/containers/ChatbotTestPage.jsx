@@ -1,28 +1,38 @@
 import React, { PropTypes } from 'react';
+import { browserHistory } from 'react-router';
 import { Helmet } from 'react-helmet';
+import { connect } from 'react-redux';
+
+import { fetchChatbots } from '../modules/redux/actions/ChatbotsActions';
 
 class ChatbotTestPage extends React.Component {
-  constructor () {
-    super();
-    this.state = {
-      current: null,
-    };
-  }
   componentWillMount () {
-    const current = window.chatbots.filter(chatbot => chatbot.slug === this.props.params.slug);
-    this.setState({ current: current[0] });
+    if (!this.props.chatbots.fetched && !this.props.chatbots.fetching) {
+      this.props.dispatch(fetchChatbots());
+    }
   }
   render () {
+    if (!this.props.chatbots.fetched) {
+      return null;
+    }
+    const chatbots = [...this.props.chatbots.chatbots];
+    const [current] = chatbots.filter(chatbot => (
+      chatbot.slug === this.props.params.slug
+    ));
+    if (!current) {
+      browserHistory.replace('/');
+      return null;
+    }
     return (
       <div>
         <Helmet>
-          <title>{this.state.current.name}</title>
+          <title>{current.name}</title>
         </Helmet>
-        <h1>Test {this.state.current.name}</h1>
+        <h1>Test {current.name}</h1>
         <table className="chat-message">
           <tbody>
             <tr>
-              <td className="chat-name">{this.state.current.name}</td>
+              <td className="chat-name">{current.name}</td>
               <td className="chat-message">
                 Hello, beep beep! I do nothing!
               </td>
@@ -34,7 +44,7 @@ class ChatbotTestPage extends React.Component {
               </td>
             </tr>
             <tr>
-              <td className="chat-name">{this.state.current.name}</td>
+              <td className="chat-name">{current.name}</td>
               <td className="chat-message">
                 Yes, but surely I am the best?
               </td>
@@ -47,7 +57,19 @@ class ChatbotTestPage extends React.Component {
 }
 
 ChatbotTestPage.propTypes = {
-  params: PropTypes.objectOf(PropTypes.string).isRequired,
+  dispatch: PropTypes.func,
+  params: PropTypes.objectOf(PropTypes.string),
+  chatbots: PropTypes.shape({
+    fetching: PropTypes.bool.isRequired,
+    fetched: PropTypes.bool.isRequired,
+    chatbots: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      slug: PropTypes.string.isRequired,
+      created: PropTypes.string.isRequired,
+    })),
+  }),
 };
 
-export default ChatbotTestPage;
+const ChatbotTestPageContainer = connect(store => ({ chatbots: store.chatbots }))(ChatbotTestPage);
+
+export default ChatbotTestPageContainer;

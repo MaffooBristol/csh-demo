@@ -1,16 +1,29 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
-import { fetchChatbots } from '../modules/redux/actions';
 import moment from 'moment';
+
+import { fetchChatbots } from '../modules/redux/actions/ChatbotsActions';
 
 class ChatbotPage extends React.Component {
   componentWillMount () {
-    this.props.dispatch(fetchChatbots());
+    if (!this.props.chatbots.fetched && !this.props.chatbots.fetching) {
+      this.props.dispatch(fetchChatbots());
+    }
   }
   render () {
-    const [current] = this.props.chatbots.chatbots.filter(chatbot => chatbot.slug === this.props.params.slug);
+    if (!this.props.chatbots.fetched) {
+      return null;
+    }
+    const chatbots = [...this.props.chatbots.chatbots];
+    const [current] = chatbots.filter(chatbot => (
+      chatbot.slug === this.props.params.slug
+    ));
+    if (!current) {
+      browserHistory.replace('/');
+      return null;
+    }
     return (
       <div>
         <Helmet>
@@ -32,7 +45,17 @@ class ChatbotPage extends React.Component {
 }
 
 ChatbotPage.propTypes = {
-  params: PropTypes.objectOf(PropTypes.string).isRequired,
+  dispatch: PropTypes.func,
+  params: PropTypes.objectOf(PropTypes.string),
+  chatbots: PropTypes.shape({
+    fetching: PropTypes.bool.isRequired,
+    fetched: PropTypes.bool.isRequired,
+    chatbots: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      slug: PropTypes.string.isRequired,
+      created: PropTypes.string.isRequired,
+    })),
+  }),
 };
 
 const ChatbotPageContainer = connect(store => ({ chatbots: store.chatbots }))(ChatbotPage);

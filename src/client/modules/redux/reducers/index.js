@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import chatbots from './Chatbots';
+import chatbots from './ChatbotsReducers';
 
 const reducers = combineReducers({ chatbots });
 
