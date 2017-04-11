@@ -1,18 +1,17 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
 import moment from 'moment';
 
-class ChatbotRow extends React.Component {
-  render () {
-    return (
-      <tr key={Math.random()}>
-        <td><Link to={`/container/${this.props.slug}`}>{this.props.name}</Link></td>
-        <td>{moment(this.props.created).fromNow()}</td>
-        <td><Link to={`/container/${this.props.slug}/test`}>Test</Link></td>
-      </tr>
-    );
-  }
-}
+import { fetchChatbots, addChatbot } from '../modules/redux/actions';
+
+const ChatbotRow = ({ name, slug, created }) => (
+  <tr key={Math.random()}>
+    <td><Link to={`/container/${slug}`}>{name}</Link></td>
+    <td>{moment(created).fromNow()}</td>
+    <td><Link to={`/container/${slug}/test`}>Test</Link></td>
+  </tr>
+);
 
 ChatbotRow.propTypes = {
   name: PropTypes.string.isRequired,
@@ -41,9 +40,16 @@ ChatbotTable.propTypes = {
 
 class Chatbots extends React.Component {
   componentWillMount () {
-    this.rows = window.chatbots.sort((a, b) => {
-      return moment(a.created).unix() < moment(b.created).unix();
-    })
+    this.props.dispatch(fetchChatbots());
+    this.addChatbot = this.addChatbot.bind(this);
+  }
+  addChatbot () {
+    this.props.dispatch(addChatbot('Test', 'test', 'Hello!'));
+  }
+  mapRows () {
+    return this.props.chatbots.chatbots.sort((a, b) => (
+      moment(a.created).unix() < moment(b.created).unix()
+    ))
     .map(row => (
       <ChatbotRow
         name={row.name}
@@ -56,10 +62,22 @@ class Chatbots extends React.Component {
   render () {
     return (
       <div>
-        <ChatbotTable rows={this.rows} />
+        <button onClick={this.addChatbot}>Add chatbot</button>
+        <ChatbotTable rows={this.mapRows()} />
       </div>
     );
   }
 }
 
-export default Chatbots;
+Chatbots.propTypes = {
+  dispatch: PropTypes.func,
+  chatbots: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+    created: PropTypes.string.isRequired,
+  }))),
+};
+
+const ChatbotsContainer = connect(store => ({ chatbots: store.chatbots }))(Chatbots);
+
+export default ChatbotsContainer;

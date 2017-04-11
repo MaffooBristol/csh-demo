@@ -8,7 +8,7 @@ const LoginForm = ({ className, onSubmit, onChange }) => (
     <form action="/" onSubmit={onSubmit}>
       <h2 className="card-heading">CSH Demo: Login</h2>
       <small>
-        This login will expire in 2 minutes.
+        This login will expire in 20 minutes.
       </small>
       <div>
         <TextField

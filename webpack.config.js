@@ -22,6 +22,9 @@ module.exports = [
     },
     entry: path.join(__dirname, '/src/client/main.jsx'),
     output: {
+      devtoolLineToLine: true,
+      sourceMapFilename: 'bundle.js.map',
+      pathinfo: true,
       path: path.join(__dirname, '/lib/client/js'),
       filename: 'bundle.js',
     },

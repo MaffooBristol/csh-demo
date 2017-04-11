@@ -24,7 +24,7 @@ export default class Auth {
       passReqToCallback: true,
     }, (req, username, password, done) => {
       if (username === 'test' && password === 'password') {
-        const token = jwt.sign({ sub: username }, secretPhrase, { expiresIn: 120 });
+        const token = jwt.sign({ sub: username }, secretPhrase, { expiresIn: 1200 });
         done(null, token, { fullName: 'John Smith' });
       }
       else {
