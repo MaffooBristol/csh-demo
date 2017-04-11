@@ -23,7 +23,6 @@ module.exports = [
     entry: path.join(__dirname, '/src/client/main.jsx'),
     devtool: 'source-map',
     output: {
-      devtoolLineToLine: true,
       sourceMapFilename: '[file].map',
       pathinfo: true,
       path: path.join(__dirname, '/lib/client/js'),
