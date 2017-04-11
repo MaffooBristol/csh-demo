@@ -45,7 +45,7 @@ class ChatbotPage extends React.Component {
 }
 
 ChatbotPage.propTypes = {
-  dispatch: PropTypes.func,
+  dispatch: PropTypes.func.isRequired,
   params: PropTypes.objectOf(PropTypes.string),
   chatbots: PropTypes.shape({
     fetching: PropTypes.bool.isRequired,

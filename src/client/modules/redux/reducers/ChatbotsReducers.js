@@ -13,6 +13,9 @@ const Chatbots = (state = {
     case 'FETCH_CHATBOTS_FULFILLED': {
       return { ...state, fetching: false, fetched: true, chatbots: action.data };
     }
+    case 'DELETE_CHATBOT': {
+      return { ...state, chatbots: state.chatbots.filter(chatbot => chatbot.slug !== action.slug) };
+    }
     default: {
       return state;
     }

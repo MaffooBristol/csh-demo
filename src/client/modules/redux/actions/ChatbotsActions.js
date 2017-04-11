@@ -21,7 +21,9 @@ export const fetchChatbots = () => (dispatch) => {
       description: 'Currency conversion for those trans-global jetsetters.',
     },
   ];
-  dispatch({ type: 'FETCH_CHATBOTS_FULFILLED', data: chatbots });
+  setTimeout(() => {
+    dispatch({ type: 'FETCH_CHATBOTS_FULFILLED', data: chatbots });
+  }, 100);
 };
 
 export const addChatbot = (name, slug, description) => (
@@ -33,5 +35,12 @@ export const addChatbot = (name, slug, description) => (
       description,
       created: moment().format(),
     },
+  }
+);
+
+export const deleteChatbot = slug => (
+  {
+    type: 'DELETE_CHATBOT',
+    slug,
   }
 );

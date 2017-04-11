@@ -1,4 +1,5 @@
 import { browserHistory } from 'react-router';
+import moment from 'moment';
 
 import BaseLayout from './layouts/Base';
 import TopbarLayout from './layouts/Topbar';
@@ -14,6 +15,19 @@ import Auth from './modules/Auth';
 
 let authCheckInterval = null;
 
+const checkAuth = () => {
+  Auth.authCheck((err, response) => {
+    if (err) {
+      Auth.unauth();
+      browserHistory.replace('/login');
+    }
+    else {
+      const duration = moment.unix(response.decoded.exp).diff(moment.unix(response.time));
+      console.log(`Time left: ${moment.duration(duration).humanize()}`);
+    }
+  });
+};
+
 export default {
   basePath: '/',
   component: BaseLayout,
@@ -24,14 +38,8 @@ export default {
         if (!Auth.isAuthed()) {
           return replace('/login');
         }
-        authCheckInterval = setInterval(() => {
-          Auth.authCheck((err) => {
-            if (err) {
-              Auth.unauth();
-              browserHistory.replace('/login');
-            }
-          });
-        }, 5000);
+        authCheckInterval = setInterval(checkAuth, 20000);
+        checkAuth();
         return this;
       },
       childRoutes: [

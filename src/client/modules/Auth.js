@@ -19,7 +19,7 @@ export default class Auth {
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       if (xhr.status === 200) {
-        callback(null);
+        callback(null, xhr.response);
       }
       else {
         callback(xhr.status);
