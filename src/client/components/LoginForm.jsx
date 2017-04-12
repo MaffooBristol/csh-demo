@@ -32,8 +32,9 @@ const LoginForm = ({ className, onSubmit, onChange }) => (
         <RaisedButton
           type="submit"
           label="Login"
-          className="cta-primary"
+          className="raised-button cta-primary"
           id="login-submit"
+          primary
         />
       </div>
     </form>

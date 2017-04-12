@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import RaisedButton from 'material-ui/RaisedButton';
 import moment from 'moment';
 import crypto from 'crypto';
 
@@ -11,19 +12,30 @@ const ChatbotRow = ({ name, slug, created, deleteChatbot, editChatbot }) => (
     <td><Link to={`/container/${slug}`}>{name}</Link></td>
     <td>{moment(created).format('DD/MM/YY HH:mm:ss')}</td>
     <td>
-      <Link to={`/container/${slug}/test`}>Test</Link>
-      <button
+      <RaisedButton
+        label={<Link to={`/container/${slug}/test`}>Test</Link>}
+        icon={<i className="material-icons">speaker_notes</i>}
+        className="raised-button"
+      />
+      <RaisedButton
+        label="Edit"
+        className="raised-button"
+        icon={<i className="material-icons">edit</i>}
         onClick={(e) => {
           e.preventDefault();
           editChatbot(slug, { edit: { name: 'EditedBot', description: 'This has been edited!' } });
         }}
-      >Edit</button>
-      <button
+      />
+      <RaisedButton
+        label="Delete"
+        className="raised-button"
+        icon={<i className="material-icons" style={{color: "white"}}>delete</i>}
+        secondary
         onClick={(e) => {
           e.preventDefault();
           deleteChatbot(slug);
         }}
-      >Delete</button>
+      />
     </td>
   </tr>
 );
@@ -88,8 +100,15 @@ class Chatbots extends React.Component {
   }
   render () {
     return (
-      <div>
-        <button onClick={this.addChatbot}>Add chatbot</button>
+      <div style={{ position: 'relative' }}>
+        <div className="page-actions">
+          <RaisedButton
+            onClick={this.addChatbot}
+            label="Add chatbot"
+            className="raised-button"
+            primary
+          />
+        </div>
         <ChatbotTable rows={this.mapRows()} />
       </div>
     );
