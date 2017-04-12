@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import moment from 'moment';
@@ -7,15 +7,19 @@ import crypto from 'crypto';
 
 import * as chatbotActions from '../modules/redux/actions/ChatbotsActions';
 
-const ChatbotRow = ({ name, slug, created, deleteChatbot, editChatbot }) => (
+const ChatbotRow = ({ name, slug, created, deleteChatbot, editChatbot, testChatbot }) => (
   <tr key={Math.random()}>
     <td><Link to={`/container/${slug}`}>{name}</Link></td>
     <td>{moment(created).format('DD/MM/YY HH:mm:ss')}</td>
     <td>
       <RaisedButton
-        label={<Link to={`/container/${slug}/test`}>Test</Link>}
+        label="Test"
         icon={<i className="material-icons">speaker_notes</i>}
         className="raised-button"
+        onClick={(e) => {
+          e.preventDefault(e);
+          testChatbot(slug);
+        }}
       />
       <RaisedButton
         label="Edit"
@@ -29,7 +33,7 @@ const ChatbotRow = ({ name, slug, created, deleteChatbot, editChatbot }) => (
       <RaisedButton
         label="Delete"
         className="raised-button"
-        icon={<i className="material-icons" style={{color: "white"}}>delete</i>}
+        icon={<i className="material-icons" style={{ color: 'white' }}>delete</i>}
         secondary
         onClick={(e) => {
           e.preventDefault();
@@ -46,6 +50,7 @@ ChatbotRow.propTypes = {
   created: PropTypes.number.isRequired,
   deleteChatbot: PropTypes.func.isRequired,
   editChatbot: PropTypes.func.isRequired,
+  testChatbot: PropTypes.func.isRequired,
 };
 
 const ChatbotTable = ({ rows }) => (
@@ -83,6 +88,9 @@ class Chatbots extends React.Component {
   editChatbot (slug, edit) {
     this.props.dispatch(chatbotActions.editChatbot(slug, edit));
   }
+  testChatbot (slug) {
+    browserHistory.push(`/container/${slug}/test`);
+  }
   mapRows () {
     return this.props.chatbots.chatbots.sort((a, b) => (
       moment(a.created).diff(b.created) < 0 ? 1 : -1
@@ -95,6 +103,7 @@ class Chatbots extends React.Component {
         key={row.slug}
         deleteChatbot={slug => this.deleteChatbot(slug)}
         editChatbot={(slug, edit) => this.editChatbot(slug, edit)}
+        testChatbot={slug => this.testChatbot(slug)}
       />
     ));
   }
