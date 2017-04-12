@@ -65,7 +65,7 @@ ChatbotTestPage.propTypes = {
     chatbots: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string.isRequired,
       slug: PropTypes.string.isRequired,
-      created: PropTypes.string.isRequired,
+      created: PropTypes.number.isRequired,
     })),
   }),
 };
