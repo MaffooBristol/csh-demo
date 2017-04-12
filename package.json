@@ -1,6 +1,6 @@
 {
   "name": "csh-demo",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Cool demo!",
   "author": "Matt Fletcher",
   "main": "index.js",
