@@ -1,34 +1,43 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { Helmet } from 'react-helmet';
+import { connect } from 'react-redux';
 import moment from 'moment';
 
+import { fetchChatbots } from '../modules/redux/actions/ChatbotsActions';
+
 class ChatbotPage extends React.Component {
-  constructor () {
-    super();
-    this.state = {
-      current: null,
-    };
-  }
   componentWillMount () {
-    const current = window.chatbots.filter(chatbot => chatbot.slug === this.props.params.slug);
-    this.setState({ current: current[0] });
+    if (!this.props.chatbots.fetched && !this.props.chatbots.fetching) {
+      this.props.dispatch(fetchChatbots());
+    }
   }
   render () {
+    if (!this.props.chatbots.fetched) {
+      return null;
+    }
+    const chatbots = [...this.props.chatbots.chatbots];
+    const [current] = chatbots.filter(chatbot => (
+      chatbot.slug === this.props.params.slug
+    ));
+    if (!current) {
+      browserHistory.replace('/');
+      return null;
+    }
     return (
       <div>
         <Helmet>
-          <title>{this.state.current.name}</title>
+          <title>{current.name}</title>
         </Helmet>
-        <h1>{this.state.current.name}</h1>
+        <h1>{current.name}</h1>
         <div className="created">
-          Created {moment(this.state.current.created).format('MMMM Do YYYY HH:mm')}
+          Created {moment.unix(current.created).format('MMMM Do YYYY HH:mm')}
         </div>
         <div className="description">
-          <p>{this.state.current.description}</p>
+          <p>{current.description}</p>
         </div>
         <div className="actions">
-          <Link to={`/container/${this.state.current.slug}/test`}>Test</Link>
+          <Link to={`/container/${current.slug}/test`}>Test</Link>
         </div>
       </div>
     );
@@ -36,7 +45,19 @@ class ChatbotPage extends React.Component {
 }
 
 ChatbotPage.propTypes = {
-  params: PropTypes.objectOf(PropTypes.string).isRequired,
+  dispatch: PropTypes.func.isRequired,
+  params: PropTypes.objectOf(PropTypes.string),
+  chatbots: PropTypes.shape({
+    fetching: PropTypes.bool.isRequired,
+    fetched: PropTypes.bool.isRequired,
+    chatbots: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      slug: PropTypes.string.isRequired,
+      created: PropTypes.string.isRequired,
+    })),
+  }),
 };
 
-export default ChatbotPage;
+const ChatbotPageContainer = connect(store => ({ chatbots: store.chatbots }))(ChatbotPage);
+
+export default ChatbotPageContainer;

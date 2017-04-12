@@ -21,7 +21,10 @@ module.exports = [
       extensions: ['.js', '.jsx'],
     },
     entry: path.join(__dirname, '/src/client/main.jsx'),
+    devtool: 'source-map',
     output: {
+      sourceMapFilename: '[file].map',
+      pathinfo: true,
       path: path.join(__dirname, '/lib/client/js'),
       filename: 'bundle.js',
     },

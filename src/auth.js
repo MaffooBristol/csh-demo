@@ -24,7 +24,7 @@ export default class Auth {
       passReqToCallback: true,
     }, (req, username, password, done) => {
       if (username === 'test' && password === 'password') {
-        const token = jwt.sign({ sub: username }, secretPhrase, { expiresIn: 120 });
+        const token = jwt.sign({ sub: username }, secretPhrase, { expiresIn: 1200 });
         done(null, token, { fullName: 'John Smith' });
       }
       else {
@@ -47,6 +47,7 @@ export default class Auth {
   }
   static check (req, res, next) {
     const token = req.headers.authorization.split(' ')[1];
+    const requestTime = Date.now();
     jwt.verify(token, secretPhrase, (err, decoded) => {
       if (err) {
         return res.status(401).end();
@@ -54,6 +55,8 @@ export default class Auth {
       if (!decoded) {
         return res.status(401).end();
       }
+      // eslint-disable-next-line no-param-reassign
+      res.locals = Object.assign(res.locals, { decoded, requestTime });
       return next();
     });
     return this;

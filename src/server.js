@@ -27,7 +27,11 @@ export default class Server {
     (new Auth(app)).setup();
 
     app.get('/api/check-auth', Auth.check, (req, res) => {
-      res.send({ message: 'Secrets!' });
+      res.send({
+        message: 'Test',
+        time: res.locals.requestTime / 1000,
+        decoded: res.locals.decoded,
+      });
     });
 
     app.get('*', (req, res) => {
