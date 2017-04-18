@@ -14,7 +14,7 @@ export default class Auth {
   static unauth () {
     localStorage.removeItem('token');
   }
-  static authCheck (callback) {
+  static authCheck () {
     store.dispatch(fetchAuth(Auth.getToken()));
   }
 }

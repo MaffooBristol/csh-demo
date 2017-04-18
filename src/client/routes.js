@@ -31,7 +31,8 @@ export default {
         store.subscribe(() => {
           const state = store.getState();
           if (state.auth.authed) {
-            const duration = moment.unix(state.auth.data.decoded.exp).diff(moment.unix(state.auth.data.time));
+            const data = state.auth.data.decoded;
+            const duration = moment.unix(data.decoded.exp).diff(moment.unix(data.time));
             console.log(`Time left: ${moment.duration(duration).humanize()}`);
           }
           else {
