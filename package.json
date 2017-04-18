@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/MaffooBristol/csh-demo#readme",
   "dependencies": {
+    "axios": "^0.16.1",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "express-session-mongo": "^0.1.0",
