@@ -11,22 +11,10 @@ import ChatbotPage from './containers/ChatbotPage';
 import ChatbotTestPage from './containers/ChatbotTestPage';
 import NotFoundPage from './containers/NotFoundPage';
 
+import store from './modules/redux/Store';
 import Auth from './modules/Auth';
 
 let authCheckInterval = null;
-
-const checkAuth = () => {
-  Auth.authCheck((err, response) => {
-    if (err) {
-      Auth.unauth();
-      browserHistory.replace('/login');
-    }
-    else {
-      const duration = moment.unix(response.decoded.exp).diff(moment.unix(response.time));
-      console.log(`Time left: ${moment.duration(duration).humanize()}`);
-    }
-  });
-};
 
 export default {
   basePath: '/',
@@ -38,8 +26,20 @@ export default {
         if (!Auth.isAuthed()) {
           return replace('/login');
         }
-        authCheckInterval = setInterval(checkAuth, 20000);
-        checkAuth();
+        authCheckInterval = setInterval(Auth.authCheck, 20000);
+        Auth.authCheck();
+        store.subscribe(() => {
+          const state = store.getState();
+          if (state.auth.authed) {
+            const data = state.auth.data.decoded;
+            const duration = moment.unix(data.decoded.exp).diff(moment.unix(data.time));
+            console.log(`Time left: ${moment.duration(duration).humanize()}`);
+          }
+          else {
+            Auth.unauth();
+            browserHistory.replace('/login');
+          }
+        });
         return this;
       },
       childRoutes: [
