@@ -1,12 +1,8 @@
 import axios from 'axios';
 
-export const fetchAuth = token => (dispatch) => {
-  axios.get('/api/check-auth', {
-    headers: {
-      'Content-type': 'application/x-www-form-urlencoded',
-      Authorization: `bearer ${token}`,
-    },
-  })
+export const fetchAuth = () => (dispatch) => {
+  dispatch({ type: 'FETCH_AUTH_START' });
+  axios.get('/api/check-auth')
   .then((res) => {
     dispatch({ type: 'FETCH_AUTH_FULFILLED', data: res.data });
   })

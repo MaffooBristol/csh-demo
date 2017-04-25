@@ -46,6 +46,9 @@ export default class Auth {
     return this;
   }
   static check (req, res, next) {
+    if (!req.headers.authorization) {
+      return res.status(401).json({ error: 'No auth header sent' });
+    }
     const token = req.headers.authorization.split(' ')[1];
     const requestTime = Date.now();
     jwt.verify(token, secretPhrase, (err, decoded) => {

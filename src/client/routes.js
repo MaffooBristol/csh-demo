@@ -30,14 +30,16 @@ export default {
         Auth.authCheck();
         store.subscribe(() => {
           const state = store.getState();
-          if (state.auth.authed) {
-            const data = state.auth.data.decoded;
-            const duration = moment.unix(data.decoded.exp).diff(moment.unix(data.time));
-            console.log(`Time left: ${moment.duration(duration).humanize()}`);
-          }
-          else {
-            Auth.unauth();
-            browserHistory.replace('/login');
+          if (state.auth.fetched) {
+            if (state.auth.authed !== false) {
+              const data = state.auth.data;
+              const duration = moment.unix(data.decoded.exp).diff(moment.unix(data.time));
+              console.log(`Time left: ${moment.duration(duration).humanize()}`);
+            }
+            else {
+              Auth.unauth();
+              browserHistory.replace('/login');
+            }
           }
         });
         return this;

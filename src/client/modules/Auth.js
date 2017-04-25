@@ -1,7 +1,9 @@
+import axios from 'axios';
+
 import store from '../modules/redux/Store';
 import { fetchAuth } from '../modules/redux/actions/AuthActions';
 
-export default class Auth {
+class Auth {
   static isAuthed () {
     return localStorage.getItem('token') !== null;
   }
@@ -17,4 +19,14 @@ export default class Auth {
   static authCheck () {
     store.dispatch(fetchAuth(Auth.getToken()));
   }
+  static getHeaders () {
+    return {
+      'Content-type': 'application/x-www-form-urlencoded',
+      Authorization: `bearer ${this.getToken()}`,
+    };
+  }
 }
+
+axios.defaults.headers.common.Authorization = `bearer ${Auth.getToken()}`;
+
+export default Auth;

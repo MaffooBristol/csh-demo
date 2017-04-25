@@ -1,29 +1,11 @@
+import axios from 'axios';
 import moment from 'moment';
 
 export const fetchChatbots = () => (dispatch) => {
-  const chatbots = [
-    {
-      name: 'MaffBot',
-      slug: 'maffbot',
-      created: parseInt(moment('2017-04-04T17:53:54+01:00').valueOf(), 10),
-      description: 'The best chatbot ever. It doesn\'t do anything, mind.',
-    },
-    {
-      name: 'HarryBot',
-      slug: 'harrybot',
-      created: parseInt(moment('2017-04-02T10:46:35+01:00').valueOf(), 10),
-      description: 'Harrybot is a very simple chatscript bot that seems to get very confused.',
-    },
-    {
-      name: 'TanBot',
-      slug: 'tanbot',
-      created: parseInt(moment('2017-03-28T12:12:18+01:00').valueOf(), 10),
-      description: 'Currency conversion for those trans-global jetsetters.',
-    },
-  ];
-  setTimeout(() => {
-    dispatch({ type: 'FETCH_CHATBOTS_FULFILLED', data: chatbots });
-  }, 100);
+  axios.post('/api/bots/list')
+  .then((res) => {
+    dispatch({ type: 'FETCH_CHATBOTS_FULFILLED', data: res.data.chatbots });
+  });
 };
 
 export const addChatbot = (name, slug, description) => (
