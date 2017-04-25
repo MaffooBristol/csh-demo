@@ -18,6 +18,7 @@ export default class Server {
     console.log(`Started on port ${port}`);
 
     app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(bodyParser.json());
 
     app.use(express.static(path.resolve('src/static')));
     app.use(express.static(path.resolve('lib/client')));

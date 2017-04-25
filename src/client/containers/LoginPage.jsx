@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 import Auth from '../modules/Auth';
 import LoginForm from '../components/LoginForm';
@@ -26,21 +27,18 @@ export default class LoginPage extends React.Component {
     const username = encodeURIComponent(this.state.user.username);
     const password = encodeURIComponent(this.state.user.password);
     const formData = `username=${username}&password=${password}`;
-    const xhr = new XMLHttpRequest();
-    xhr.open('post', '/login');
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.responseType = 'json';
-    xhr.addEventListener('load', () => {
-      if (xhr.status === 200) {
-        Auth.auth(xhr.response.token);
-        window.location = '/';
-      }
-      else {
-        const err = xhr.response.error || 'unknown';
-        alert(`Could not log in. Reason: ${err}`);
-      }
+    axios.post('/login', formData, {
+      headers: {
+        'Content-type': 'application/x-www-form-urlencoded',
+      },
+    })
+    .then(({ data }) => {
+      Auth.auth(data.token);
+      window.location = '/';
+    })
+    .catch(({ message = 'unknown' }) => {
+      alert(`Could not log in. Reason: ${message}`);
     });
-    xhr.send(formData);
   }
   render () {
     return (
