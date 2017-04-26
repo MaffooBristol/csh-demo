@@ -2,6 +2,7 @@ import axios from 'axios';
 import moment from 'moment';
 
 export const fetchChatbots = () => (dispatch) => {
+  dispatch({ type: 'FETCH_CHATBOTS_START' });
   axios.post('/api/bots/list')
   .then(({ data }) => {
     dispatch({ type: 'FETCH_CHATBOTS_FULFILLED', data: data.chatbots });
@@ -12,6 +13,7 @@ export const fetchChatbots = () => (dispatch) => {
 };
 
 export const addChatbot = (name, slug, description) => (dispatch) => {
+  dispatch({ type: 'ADD_CHATBOT_START' });
   axios.post('/api/bots/add', {
     data: {
       name,
@@ -32,6 +34,7 @@ export const addChatbot = (name, slug, description) => (dispatch) => {
 };
 
 export const deleteChatbot = slug => (dispatch) => {
+  dispatch({ type: 'DELETE_CHATBOT_START' });
   axios.post('/api/bots/delete', {
     data: {
       slug,
@@ -49,6 +52,7 @@ export const deleteChatbot = slug => (dispatch) => {
 };
 
 export const editChatbot = (slug, edit) => (dispatch) => {
+  dispatch({ type: 'EDIT_CHATBOT_START' });
   axios.post('/api/bots/edit', {
     data: {
       slug,
