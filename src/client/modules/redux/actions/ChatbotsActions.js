@@ -3,22 +3,32 @@ import moment from 'moment';
 
 export const fetchChatbots = () => (dispatch) => {
   axios.post('/api/bots/list')
-  .then((res) => {
-    dispatch({ type: 'FETCH_CHATBOTS_FULFILLED', data: res.data.chatbots });
+  .then(({ data }) => {
+    dispatch({ type: 'FETCH_CHATBOTS_FULFILLED', data: data.chatbots });
+  })
+  .catch(({ message }) => {
+    dispatch({ type: 'FETCH_CHATBOTS_REJECTED', error: message });
   });
 };
 
-export const addChatbot = (name, slug, description) => (
-  {
-    type: 'ADD_CHATBOT',
+export const addChatbot = (name, slug, description) => (dispatch) => {
+  axios.post('/api/bots/add', {
     data: {
       name,
       slug,
       description,
       created: moment().valueOf(),
     },
-  }
-);
+  }).then(({ data }) => {
+    dispatch({
+      type: 'ADD_CHATBOT_FULFILLED',
+      data: data.addedChatbot,
+    });
+  })
+  .catch(({ message }) => {
+    dispatch({ type: 'ADD_CHATBOT_REJECTED', error: message });
+  });
+};
 
 export const deleteChatbot = slug => (
   {

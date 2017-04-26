@@ -4,7 +4,7 @@ const Chatbots = (state = {
   chatbots: [],
 }, action) => {
   switch (action.type) {
-    case 'ADD_CHATBOT': {
+    case 'ADD_CHATBOT_FULFILLED': {
       return { ...state, chatbots: [...state.chatbots, action.data] };
     }
     case 'FETCH_CHATBOTS_START': {

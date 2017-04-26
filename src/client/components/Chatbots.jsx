@@ -80,7 +80,8 @@ class Chatbots extends React.Component {
     this.addChatbot = this.addChatbot.bind(this);
   }
   addChatbot () {
-    this.props.dispatch(chatbotActions.addChatbot('Fakebot', crypto.randomBytes(8).toString('hex'), 'This was created automatically'));
+    const slug = crypto.randomBytes(8).toString('hex');
+    this.props.dispatch(chatbotActions.addChatbot(`Fakebot ${slug}`, slug, 'This was created automatically'));
   }
   deleteChatbot (slug) {
     this.props.dispatch(chatbotActions.deleteChatbot(slug));
