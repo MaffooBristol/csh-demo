@@ -19,12 +19,6 @@ class Auth {
   static authCheck () {
     store.dispatch(fetchAuth(Auth.getToken()));
   }
-  static getHeaders () {
-    return {
-      'Content-type': 'application/x-www-form-urlencoded',
-      Authorization: `bearer ${this.getToken()}`,
-    };
-  }
 }
 
 axios.defaults.headers.common.Authorization = `bearer ${Auth.getToken()}`;
