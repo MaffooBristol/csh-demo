@@ -19,7 +19,8 @@ export const addChatbot = (name, slug, description) => (dispatch) => {
       description,
       created: moment().valueOf(),
     },
-  }).then(({ data }) => {
+  })
+  .then(({ data }) => {
     dispatch({
       type: 'ADD_CHATBOT_FULFILLED',
       data: data.addedChatbot,
@@ -30,19 +31,40 @@ export const addChatbot = (name, slug, description) => (dispatch) => {
   });
 };
 
-export const deleteChatbot = slug => (
-  {
-    type: 'DELETE_CHATBOT',
-    slug,
-  }
-);
+export const deleteChatbot = slug => (dispatch) => {
+  axios.post('/api/bots/delete', {
+    data: {
+      slug,
+    },
+  })
+  .then(({ data }) => {
+    dispatch({
+      type: 'DELETE_CHATBOT_FULFILLED',
+      slug: data.slug,
+    });
+  })
+  .catch(({ message }) => {
+    dispatch({ type: 'DELETE_CHATBOT_REJECTED', error: message });
+  });
+};
 
-export const editChatbot = (slug, edit) => (
-  {
-    type: 'EDIT_CHATBOT',
+export const editChatbot = (slug, edit) => (dispatch) => {
+  axios.post('/api/bots/edit', {
     data: {
       slug,
       ...edit,
     },
-  }
-);
+  })
+  .then(({ data }) => {
+    dispatch({
+      type: 'EDIT_CHATBOT_FULFILLED',
+      data: {
+        slug: data.slug,
+        edit: data.editedChatbot,
+      },
+    });
+  })
+  .catch(({ message }) => {
+    dispatch({ type: 'EDIT_CHATBOT_REJECTED', error: message });
+  });
+};

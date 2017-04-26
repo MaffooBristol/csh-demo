@@ -6,7 +6,7 @@ import moment from 'moment';
 
 import Auth from './auth';
 
-const chatbots = [
+let chatbots = [
   {
     name: 'MaffBot',
     slug: 'maffbot',
@@ -74,6 +74,34 @@ export default class Server {
       chatbots.push(addedChatbot);
       res.send({
         addedChatbot,
+        success: true,
+      });
+    });
+
+    app.post('/api/bots/delete', Auth.check, (req, res) => {
+      const { slug } = req.body.data;
+      // Mutating the original is BAAAAAAD, but this is just in preparation
+      // for doing it properly.
+      chatbots = chatbots.filter(chatbot => chatbot.slug !== slug);
+      res.send({
+        slug,
+        success: true,
+      });
+    });
+
+    app.post('/api/bots/edit', Auth.check, (req, res) => {
+      const { slug, edit } = req.body.data;
+      // Mutating the original is BAAAAAAD, but this is just in preparation
+      // for doing it properly.
+      let editedChatbot;
+      chatbots = chatbots.map((chatbot) => {
+        if (chatbot.slug !== slug) return chatbot;
+        editedChatbot = Object.assign({}, chatbot, edit);
+        return editedChatbot;
+      });
+      res.send({
+        slug,
+        editedChatbot,
         success: true,
       });
     });

@@ -8,10 +8,10 @@ import crypto from 'crypto';
 import * as chatbotActions from '../modules/redux/actions/ChatbotsActions';
 
 const ChatbotRow = ({ name, slug, created, deleteChatbot, editChatbot, testChatbot }) => (
-  <tr key={Math.random()}>
-    <td><Link to={`/container/${slug}`}>{name}</Link></td>
-    <td>{moment(created).format('DD/MM/YY HH:mm:ss')}</td>
-    <td>
+  <tr key={slug}>
+    <td className="chatbot-name"><Link to={`/container/${slug}`}>{name}</Link></td>
+    <td className="chatbot-created">{moment(created).format('DD/MM/YY HH:mm:ss')}</td>
+    <td className="chatbot-actions">
       <RaisedButton
         label="Test"
         icon={<i className="material-icons">speaker_notes</i>}
@@ -54,7 +54,7 @@ ChatbotRow.propTypes = {
 };
 
 const ChatbotTable = ({ rows }) => (
-  <table>
+  <table className="chatbot-table">
     <thead>
       <tr>
         <th>Name</th>

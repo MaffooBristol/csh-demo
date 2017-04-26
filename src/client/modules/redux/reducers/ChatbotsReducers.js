@@ -4,19 +4,19 @@ const Chatbots = (state = {
   chatbots: [],
 }, action) => {
   switch (action.type) {
-    case 'ADD_CHATBOT_FULFILLED': {
-      return { ...state, chatbots: [...state.chatbots, action.data] };
-    }
     case 'FETCH_CHATBOTS_START': {
       return { ...state, fetching: true };
     }
     case 'FETCH_CHATBOTS_FULFILLED': {
       return { ...state, fetching: false, fetched: true, chatbots: action.data };
     }
-    case 'DELETE_CHATBOT': {
+    case 'ADD_CHATBOT_FULFILLED': {
+      return { ...state, chatbots: [...state.chatbots, action.data] };
+    }
+    case 'DELETE_CHATBOT_FULFILLED': {
       return { ...state, chatbots: state.chatbots.filter(chatbot => chatbot.slug !== action.slug) };
     }
-    case 'EDIT_CHATBOT': {
+    case 'EDIT_CHATBOT_FULFILLED': {
       return {
         ...state,
         chatbots: state.chatbots.map((chatbot) => {
